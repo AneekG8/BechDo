@@ -1,0 +1,38 @@
+.scrollbar-custom{
+    scrollbar-color: #d4aa70 #e4e4e4;
+    scrollbar-width: thin;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+background-color: #e4e4e4;
+border-radius: 100px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+border-radius: 100px;
+border: 6px solid rgba(0, 0, 0, 0.18);
+border-left: 0;
+border-right: 0;
+background-color:grey;
+}
+
+#login{
+    background-image: linear-gradient(to bottom right,grey,white);
+}
+
+#sideDisplay{
+    background-image: url("https://images.unsplash.com/photo-1557821552-17105176677c?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2hvcHBpbmclMjBjYXJ0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+#title{
+    position: relative;
+    left: 0;
+    top: 0;
+}

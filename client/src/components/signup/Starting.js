@@ -2,7 +2,7 @@ const Starting = (props) => {
     return ( 
         <div>
             <div className="vh-100 d-flex align-items-center justify-content-center">
-                <div className="border shadow container py-4 text-center">
+                <div className="border shadow container py-4 text-center" id="starting">
                     <h1 className="display-2 mb-5">
                         BechDo
                     </h1>

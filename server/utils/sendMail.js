@@ -27,11 +27,18 @@ const send_verification_mail = async(email,req) => {
     //const base = req.protocol + '://' + req.get('host');
     const base = 'http://localhost:3000'
 
+    let subject = 'No Subject';
+
+    if(req.path === '/change_password/email_verification')
+        subject = 'Verification Required to Change Password @BechDo'
+
+    else if(req.path === '/signup/email_verification')
+        subject = 'Verification Required for Sign-up @BechDo'
     
     const mailOptions = {
         from: 'noreply @learn_authentication.com', // sender address
         to: email, // list of receivers
-        subject: "Verification Required", // Subject line
+        subject, // Subject line
         html: `<a href = "${base}/email_verification?token=${token}">verify your mail</a>`// html body
     }
 

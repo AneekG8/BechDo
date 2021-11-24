@@ -1,7 +1,8 @@
+import './Landing.css'
 const Landing = () => {
     return ( 
-    <div className="vh-100 d-flex justify-content-center align-items-center">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div className="vh-100 d-flex justify-content-center align-items-center" id="landing">
+        <nav className="navbar navbar-expand-lg shadow-sm navbar-light fixed-top">
           <div className="container-fluid px-3">
             <a className="navbar-brand" href="/">BechDo</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +24,7 @@ const Landing = () => {
           </div>
         </nav>
 
-        <h1 className="display-1">
+        <h1 className="display-1" id="title">
           Bech Do
         </h1>
     </div>

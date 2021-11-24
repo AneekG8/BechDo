@@ -7,6 +7,9 @@ import cookieParser from "cookie-parser";
 
 //routes
 import authRoutes from './routes/apis/authRoutes.js'; 
+import productRoutes from './routes/apis/productRoutes.js';
+import adminRoutes from './routes/apis/adminRoutes.js';
+import messageRoutes from './routes/apis/messageRoutes.js';
 
 const app = express();
 
@@ -39,4 +42,6 @@ app.use(cookieParser());
 
 //config routes
 app.use('/api/auth',authRoutes);
-
+app.use('/api/products',productRoutes);
+app.use('/api/admin',adminRoutes);
+app.use('/api/messages',messageRoutes);

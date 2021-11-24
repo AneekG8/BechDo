@@ -14,7 +14,6 @@ const RestrictedRoute = (props) => {
     useEffect(()=>{
         axios.get('/api/auth/login')
             .then( res => {
-                console.log(res.data)
                 setState({
                     isAuth: res.data.isAuth,
                     user: res.data.user,
@@ -36,9 +35,8 @@ const RestrictedRoute = (props) => {
         <div>
             {
                 state.isLoading ? <Loading/> :
-                state.isAuth ? <Redirect to={`/home`}/> :
-                props.children
-                
+                state.isAuth ? <>{state.user.role === 'admin' ? <Redirect to={`/admin/dashboard`}/> : <Redirect to={`/home`}/>}</> :
+                props.children          
             }
         </div>
     );

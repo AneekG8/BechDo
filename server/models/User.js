@@ -56,8 +56,14 @@ const userSchema = new mongoose.Schema({
             values: ['local','oAuth'],
             message: '{VALUE} is not a supported strategy'
         }
-    }
-})
+    },
+    products: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'product'
+        }
+    ]
+},{timestamps: true})
 
 const User = mongoose.model('user',userSchema);
 

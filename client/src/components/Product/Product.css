@@ -1,0 +1,15 @@
+.userMsg{
+    max-width: 75%;
+    background: rgb(211, 209, 209);
+}
+.sellerMsg{
+    max-width: 75%;
+    background: #05728f;
+    color: white
+}
+
+.product-animation:hover{
+    transform: translateY(-10%);
+    transition-duration: 0.5s;
+    z-index: 5;
+}

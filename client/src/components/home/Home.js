@@ -1,58 +1,61 @@
-import Navbar from "../Navbar";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Navbar from "../Navbar/Navbar";
+import ProductList from "../Product/ProductList";
+import '../utils/Utils.css'
 
 const Home = (props) => {
 
+    const [state,setState] = useState({
+        location: {
+            name: 'India',
+            coords: {
+                lat: 20.5937,
+                lng: 78.9629
+            }
+        }
+    })
+
+    useEffect(()=>{
+        navigator.geolocation.getCurrentPosition((position)=>{
+
+            const {coords} = position
+
+            setState(prevState => ({...prevState,location:{
+                name: 'unavailable',
+                coords: {
+                    lat: coords.latitude,
+                    lng: coords.longitude
+                }
+            }}))
+
+            axios.get('https://apis.mapmyindia.com/advancedmaps/v1/c2421e977564d7108e07605a984bd8ed/rev_geocode',{
+                params:{
+                    lat: coords.latitude,
+                    lng: coords.longitude
+                }
+            })
+            .then( res => {
+                
+                const currentLocation = res.data.results[0]
+                console.log(res.data.results[0])
+                setState(prevState => ({...prevState,location:{
+                    name: currentLocation.city + ' , ' + currentLocation.state,
+                    coords: {
+                        lat: coords.latitude,
+                        lng: coords.longitude
+                    }
+                }}))
+            })
+            .catch( err => console.log(err))
+        })
+    },[])
+
     return ( 
         <div>
-            <Navbar user = {props.user} />
-            <div style = {{height: "64px"}}></div>
-            <div className="text-center border py-1">
-                <h5> categories  </h5>
-            </div>
-            <div className="container py-3">
-                
-            <div className="row row-cols-1 row-cols-md-3 g-4" >
-                <div className="col">
-                    <div className="card h-100">
-                    <img height = "260px" src="https://images.unsplash.com/photo-1589492477829-5e65395b66cc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1vYmlsZSUyMHBob25lfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80" className="card-img-top" alt="..."/>
-                    <div className="card-body">
-                        <h5 className="card-title">Rs. 50000</h5>
-                        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className="card h-100">
-                    <img height = "260px" src="https://images.unsplash.com/photo-1589492477829-5e65395b66cc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1vYmlsZSUyMHBob25lfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80" className="card-img-top" alt="..."/>
-                    <div className="card-body">
-                        <h5 className="card-title">Rs. 50000</h5>
-                        <p className="card-text">
-                            <p><b> iphone </b></p>
-                            <p> 2 months old. </p>
-                        </p>
-                    </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className="card h-100">
-                    <img height = "260px" src="https://images.unsplash.com/photo-1589492477829-5e65395b66cc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1vYmlsZSUyMHBob25lfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80" className="card-img-top" alt="..."/>
-                    <div className="card-body">
-                        <h5 className="card-title">Rs. 50000</h5>
-                        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className="card h-100">
-                    <img height = "260px" src="https://images.unsplash.com/photo-1589492477829-5e65395b66cc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1vYmlsZSUyMHBob25lfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80" className="card-img-top" alt="..."/>
-                    <div className="card-body">
-                        <h5 className="card-title">Rs. 50000</h5>
-                        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
+            <Navbar user = {props.user} location = {state.location} />
+            
+            <ProductList location = {state.location}/>
         </div>
      );
 }

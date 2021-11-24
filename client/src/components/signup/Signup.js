@@ -117,6 +117,7 @@ const Signup = () => {
                 window.location.assign("/home");
             })
             .catch( err => {
+                console.log(err.response.data)
                 setState((prevState)=> ({...prevState,loading: false,message: err.response.data.message}))
                 window.location.reload()
             })
@@ -124,7 +125,7 @@ const Signup = () => {
     return (
          
         <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <nav className="navbar navbar-expand-lg navbar-light shadow fixed-top">
                 <div className="container-fluid px-3">
                     <a className="navbar-brand" href="/">BechDo</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

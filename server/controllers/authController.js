@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import send_verification_mail from '../utils/sendMail.js'
 import authenticateUser from "../utils/authenticateUser.js";
 import User from "../models/User.js";
+import cloudinary from "../utils/cloudinary.js"; 
 
 export const login_get = async (req,res)=>{
 
@@ -45,8 +46,11 @@ export const email_verification_post = async (req,res)=>{
         const email = req.body.email;
         const userExists = await UserCredential.findOne({email});
 
-        if(userExists)
+        if(req.path === '/signup/email_verification' && userExists)
             throw(new Error('this email id is already registered'));
+
+        if(req.path === '/change_password/email_verification' && !userExists)
+            throw(new Error('this email id is not registered'));
 
         await send_verification_mail(email,req);
 
@@ -118,6 +122,12 @@ export const create_user_post = async (req,res)=>{
 
         const newUserCredential = strategy === 'local' ? new UserCredential({email,password}) : undefined;
 
+        // if(strategy === 'local'){
+        //     const result = await cloudinary.uploader.upload(req.file.path);
+        //     console.log(result)
+        //     avatar = result.secure_url;
+        // }
+
         avatar = avatar || "https://cdn2.iconfinder.com/data/icons/font-awesome/1792/user-512.png";
 
         const newUser = new User({email,firstName,lastName,phone,city,state,pin,strategy,avatar});
@@ -148,7 +158,33 @@ export const create_user_post = async (req,res)=>{
         res.status(201).json({user,userCredential,message: 'you have been signed up successfully!'});
     }
     catch (err){
-        console.log(err.message)
+        console.log(err)
+        res.status(400).json({message: err.message})
+    }
+}
+
+export const change_password_post = async (req,res)=>{
+    try{
+        
+        const {email,password} = req.body
+
+        const userCredential = await UserCredential.findOne({email})
+
+        if(!userCredential)
+            throw(new Error('this email id is not registered'))
+
+        const match = bcrypt.compareSync(password,userCredential.password);
+
+        if(match)
+            throw(new Error('you cannot use your old password'))
+
+        userCredential.password = password
+
+        await userCredential.save()
+
+        res.status(200).json(userCredential)
+    }
+    catch(err){
         res.status(400).json({message: err.message})
     }
 }

@@ -14,7 +14,6 @@ const PrivateRoute = (props) => {
     useEffect(()=>{
         axios.get('/api/auth/login')
             .then( res => {
-                console.log(res.data)
                 setState({
                     isAuth: res.data.isAuth,
                     user: res.data.user,
@@ -23,6 +22,7 @@ const PrivateRoute = (props) => {
                 })
             })
             .catch( err =>{
+                console.log(err.response)
                 setState({
                     isAuth: err.response.data.isAuth,
                     user: null,
@@ -36,7 +36,7 @@ const PrivateRoute = (props) => {
         <div>
             {
                 state.isLoading ? <Loading/> :
-                state.isAuth ?  cloneElement(props.children,{user: state.user})  :
+                state.isAuth && state.user.role !== 'admin' ?  cloneElement(props.children,{user: state.user})  :
                 <Redirect to={`/login`}/>
             }
         </div>
