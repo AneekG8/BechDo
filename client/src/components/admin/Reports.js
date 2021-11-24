@@ -15,6 +15,8 @@ const Reports = () => {
         })
     },[])
 
+    console.log(reports)
+
     return ( 
         <div>
             <AdminNavbar/>

@@ -136,6 +136,11 @@ export const product_delete = async (req,res)=>{
 
         const product = await Product.findById(id)
         const author = await User.findById(product.author)
+        const reports = await Report.find({product: id})
+
+        for(let i = 0;i<reports.length;i++){
+            await Report.findByIdAndDelete(reports[i]._id)
+        }
 
         const index = author.products.indexOf(id)
         author.products.splice(index,1)
