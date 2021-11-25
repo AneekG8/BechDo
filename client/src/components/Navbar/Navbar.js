@@ -54,15 +54,18 @@ const Navbar = (props) => {
                                         <Popover id={`popover-positioned-bottom`}>
                                             <PopoverBody>
                                                 <div style={{width: '150px'}} className="text-center">
-                                                    <div className="px-2 py-1 border cursor-pointer">
+                                                    {/* <div className="px-2 py-1 border cursor-pointer">
                                                         <a href="/edit_profile" className="link-light">Edit Profile</a>
-                                                    </div>
+                                                    </div> */}
                                                     {
                                                         user.strategy === 'local' &&
                                                         <div className="px-2 py-1 border cursor-pointer">
                                                             <a href="/change_password" className="link-light">Change Password</a>
                                                         </div>
                                                     }
+                                                    <div className="px-2 py-1 border cursor-pointer">
+                                                        <a href="/my_ads" className="link-light"> My Ads</a>
+                                                    </div>
                                                 </div>
                                             </PopoverBody>
                                         </Popover>

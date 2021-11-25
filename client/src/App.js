@@ -18,6 +18,8 @@ import ReportDetails from "./components/admin/ReportDetails";
 import { Redirect } from "react-router";
 import './components/utils/Utils.css'
 import ChangePassword from "./components/changePassword/ChangePassword";
+import Ads from "./components/Profile/Ads";
+import Feedback from "./components/Feedback/Feedback";
 
 // import Test from "./components/Test";
 
@@ -61,6 +63,16 @@ function App() {
             </Route>
             <Route exact path = '/change_password'>
               <ChangePassword/>
+            </Route>
+            <Route exact path = '/my_ads'>
+              <PrivateRoute>
+                <Ads/>
+              </PrivateRoute>
+            </Route>
+            <Route exact path = '/feedback'>
+              <PrivateRoute>
+                <Feedback/>
+              </PrivateRoute>
             </Route>
             <Route exact path ='/admin/login'>
               <RestrictedRoute>

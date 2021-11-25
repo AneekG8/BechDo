@@ -10,6 +10,7 @@ import authRoutes from './routes/apis/authRoutes.js';
 import productRoutes from './routes/apis/productRoutes.js';
 import adminRoutes from './routes/apis/adminRoutes.js';
 import messageRoutes from './routes/apis/messageRoutes.js';
+import userRoutes from './routes/apis/userRoutes.js';
 
 const app = express();
 
@@ -45,3 +46,4 @@ app.use('/api/auth',authRoutes);
 app.use('/api/products',productRoutes);
 app.use('/api/admin',adminRoutes);
 app.use('/api/messages',messageRoutes);
+app.use('/api/users',userRoutes);
