@@ -18,7 +18,7 @@ const userCredentialSchema = new mongoose.Schema({
         required: [true,'password cannot be empty'],
         minLength: [6,'password should be at least 6 characters long']
     }
-})
+},{timestamps: true})
 
 userCredentialSchema.pre('save',async function(next){
     const salt = await bcrypt.genSalt();

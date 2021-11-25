@@ -38,7 +38,6 @@ const Home = (props) => {
             .then( res => {
                 
                 const currentLocation = res.data.results[0]
-                console.log(res.data.results[0])
                 setState(prevState => ({...prevState,location:{
                     name: currentLocation.city + ' , ' + currentLocation.state,
                     coords: {

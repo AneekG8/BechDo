@@ -12,19 +12,20 @@ export const products_get = async (req,res)=>{
         
         const userLocation = JSON.parse(req.query.location)
 
-        const {sortBy,order,category} = req.query;
+        const {sortBy,order,category,sortByLocation} = req.query;
 
         let products = []
         
         if(category === 'all')
-            products = await Product.find({status: {verified: true,approved: true}})
+            products = await Product.find({status: {verified: true,approved: true}}).sort({[sortBy]: parseInt(order)})
 
         else 
-            products = await Product.find({category,status: {verified: true,approved: true}})
-
-        products.sort(function(a,b){
-            return haversine({...a.location.coords},{...userLocation.coords}) - haversine({...b.location.coords},{...userLocation.coords})
-        })
+            products = await Product.find({category,status: {verified: true,approved: true}}).sort({[sortBy]: parseInt(order)})
+        
+        if(sortByLocation === 'true')
+            products.sort(function(a,b){
+                return haversine({...a.location.coords},{...userLocation.coords}) - haversine({...b.location.coords},{...userLocation.coords})
+            })
 
         const page = parseInt(req.query.page);
 

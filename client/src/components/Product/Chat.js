@@ -5,28 +5,33 @@ import axios from 'axios'
 const Chat = (props) => {
     const {user,seller,product_id} = props
 
-    console.log(user._id,product_id)
-
     const [messages,setMessages] = useState([])
 
     const [message,setMessage] = useState('')
 
+    //const [updated,setUpdated] = useState(false)
+
+    const scroll = ()=>{
+
+        const chatBox = document.querySelector('#chatBox')
+
+        if(chatBox)
+            chatBox.scrollTop = chatBox.scrollHeight
+    }
+
     useEffect(()=>{
-        axios.get('/api/messages',{
-            params: {
-                product_id,
-                user_id: user._id
-            }
-        })
+        scroll()
+    },[messages])
+
+    useEffect(()=>{
+        axios.get(`/api/messages/${product_id}/${user._id}`)
         .then( res => {
-            setMessages(res.data)
+            setMessages(res.data.messages)
+            // setUpdated(true)
         })
         .catch( err => {
             console.log(err)
         })
-        
-        const chatBox = document.querySelector('#chatBox')
-        chatBox.scrollTop = chatBox.scrollHeight
 
     },[product_id,user])
 
@@ -41,11 +46,14 @@ const Chat = (props) => {
                 from: 'user'
             })
             .then( res=> {
-                // setMessages( prevMessages => {
-                //     prevMessages.push(res.data)
-                //     return prevMessages
-                // })
                 setMessage('')
+                axios.get(`/api/messages/${product_id}/${user._id}`)
+                .then( res => {
+                    setMessages(res.data.messages)
+                })
+                .catch( err => {
+                    console.log(err)
+                })
             })
             .catch( err => {
                 console.log(err)
@@ -61,7 +69,7 @@ const Chat = (props) => {
         <>
             <div className="accordion-item mb-3">
                 <h2 className="accordion-header" id="headingOne">
-                <button className="btn btn-dark w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <button onClick={scroll} className="btn btn-dark w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     chat with seller
                 </button>
                 </h2>

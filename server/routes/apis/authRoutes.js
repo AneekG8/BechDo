@@ -18,6 +18,12 @@ router.post('/signup/create_user',multer.single('image'),create_user_post)
 router.post('/login/oAuth',oAuth_post)
 router.post('/change_password/email_verification',email_verification_post)
 router.post('/change_password',change_password_post)
+
+router.get('/test',async (req,res)=>{
+    const products = await Product.find({category: 'furniture'},['price']).sort({'price': 1})
+
+    res.json(products)
+})
 router.post('/create_userCred',async (req,res)=>{
     const {email,password} = req.body
 

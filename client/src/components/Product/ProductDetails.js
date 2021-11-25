@@ -6,6 +6,7 @@ import ReportProduct from './ReportProduct';
 import Chat from './Chat'
 import moment from 'moment';
 import './Product.css'
+import ChatForSeller from "./ChatForSeller";
 
 const ProductDetails = (props) => {
     const {id} = useParams()
@@ -89,7 +90,7 @@ const ProductDetails = (props) => {
                             </div>
                             <div className="px-3">
                                 <h4> Description </h4>
-                                <p> {state.product.description} </p>
+                                <p> {state.product.description || 'No description available'} </p>
                             </div>
                         </div>
                     </div>
@@ -160,6 +161,7 @@ const ProductDetails = (props) => {
                                     </div>
                                 </>
                             }
+                            {user._id === state.product.author._id && <ChatForSeller user={user} seller={state.product.author} product_id={state.product._id}/>}
                         </div>
                     </div>
                 </div>

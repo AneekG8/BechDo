@@ -11,7 +11,7 @@ const ProductList = (props) => {
     const [products,setProducts] = useState(null);
 
     const [order,setOrder] = useState({
-        value: 'relevance',
+        value: '',
         sortBy: 'createdAt',
         order: -1
     });
@@ -25,15 +25,26 @@ const ProductList = (props) => {
 
     const [category,setCategory] = useState('all')
 
+    const [sortByLocation,setSortByLocation] = useState(true)
+
     useEffect(()=>{
+        const categoryElements = document.querySelectorAll('.hover-link')
+
+        categoryElements.forEach(item => {
+            if(item.dataset.category === category)
+                item.classList.add('active')
+            else
+                item.classList.remove('active')
+        })
+
         setLoading(true)
         axios.get(`/api/products?sortBy=${order.sortBy}&order=${order.order}&page=${page}&category=${category}`,{
             params:{
-                location
+                location,
+                sortByLocation
             }
         })
         .then( res => {
-            console.log(res.data.products)
             setProducts(res.data.products)
             setPager(res.data.pager)
             setLoading(false)
@@ -41,7 +52,7 @@ const ProductList = (props) => {
         .catch( err => {
             console.log(err)
         })
-    },[order,page,category,location])
+    },[order,page,category,location,sortByLocation])
 
     useEffect(()=>{
         if(pager?.totalPages === 0 || (pager?.currentPage === pager?.startPage && pager?.currentPage === pager?.endPage))
@@ -68,6 +79,7 @@ const ProductList = (props) => {
     },[pager])
 
     const handleSort = (e)=>{
+        setSortByLocation(false)
         const sortBy = e.target.value;
 
         if(sortBy === 'relevance')
@@ -81,14 +93,14 @@ const ProductList = (props) => {
             setOrder({
                 value: sortBy,
                 sortBy: 'price',
-                order: -1
+                order: 1
             })
 
         else if(sortBy === 'priceDesc')
         setOrder({
             value: sortBy,
             sortBy: 'price',
-            order: 1
+            order: -1
         })
     }
 
@@ -112,13 +124,22 @@ const ProductList = (props) => {
 
     const handleCategoryChange = (e)=>{
         setPage(1)
+
         setCategory(e.target.dataset.category)
+    }
+
+    const handleSwitchChange = (e)=>{
+        setSortByLocation(e.target.checked)
+        setOrder(prevState => ({
+            ...prevState,
+            value:""
+        }))
     }
 
     return ( 
         <div>
             <div className="d-none d-md-flex border py-1 justify-content-around mb-3">
-                <b className="cursor-pointer hover-link" data-category="all" onClick = {handleCategoryChange}>All Categories</b>
+                <b className="cursor-pointer active hover-link" data-category="all" onClick = {handleCategoryChange}>All Categories</b>
                 <b className="cursor-pointer hover-link" data-category="mobile" onClick = {handleCategoryChange}>Mobiles</b>
                 <b className="cursor-pointer hover-link" data-category="computer" onClick = {handleCategoryChange}>Computers</b>
                 <b className="cursor-pointer hover-link" data-category="furniture" onClick = {handleCategoryChange}>Furnitures</b>
@@ -139,10 +160,15 @@ const ProductList = (props) => {
 
                     <>
                         <div className="d-none d-md-flex justify-content-between align-items-center">
-                            <h1 className="display-5 text-secondary mb-3">Products nearby you <span style={{fontSize:"15px"}}> page {pager?.currentPage} of {pager?.totalPages}</span></h1>
+                            <h1 className="display-5 text-secondary mb-3 form-check form-switch">
+                                Products nearby you 
+                                <input onChange={handleSwitchChange} checked={sortByLocation} className="form-check-input" style={{fontSize: '30px'}} type="checkbox" role="switch"/>
+                                <span style={{fontSize:"15px"}}> page {pager?.currentPage} of {pager?.totalPages}</span>
+                            </h1>
                             <div>
                                 sort by - 
-                                <select disabled onChange={handleSort} className="mx-2 p-1 cursor-pointer" value={order.value}>
+                                <select onChange={handleSort} className="mx-2 p-1 cursor-pointer" value={order.value}>
+                                    <option value="" disabled>choose an order</option>
                                     <option value="relevance">Relevance</option>
                                     <option value="priceAsc">Price Low To High</option>
                                     <option value="priceDesc">Price High To Low</option>
@@ -153,13 +179,6 @@ const ProductList = (props) => {
                         <div className="row row-cols-1 row-cols-md-3 g-4" >
                             {
                                 products.map( product => 
-                                    // if(props.category ==='all')
-                                    //     return <Product product = { product } key = {product._id}/>
-                                    // else if(product.category === props.category)
-                                    //     return <Product product = { product } key = {product._id}/>
-                                    // else
-                                    //     return null
-
                                     <Product product = {product} key = {product._id}/>
                                 )
                             }
