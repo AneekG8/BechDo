@@ -160,9 +160,9 @@ const ProductList = (props) => {
 
                     <>
                         <div className="d-none d-md-flex justify-content-between align-items-center">
-                            <h1 className="display-5 text-secondary mb-3 form-check form-switch">
+                            <h1 className="display-5 ps-5 text-secondary mb-3 form-check form-switch">
                                 Products nearby you 
-                                <input onChange={handleSwitchChange} checked={sortByLocation} className="form-check-input" style={{fontSize: '30px'}} type="checkbox" role="switch"/>
+                                <input onChange={handleSwitchChange} checked={sortByLocation} className="me-1 form-check-input" style={{fontSize: '30px'}} type="checkbox" role="switch"/>
                                 <span style={{fontSize:"15px"}}> page {pager?.currentPage} of {pager?.totalPages}</span>
                             </h1>
                             <div>
