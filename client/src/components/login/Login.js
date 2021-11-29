@@ -57,6 +57,9 @@ const Login = () => {
                                 <a className="nav-link" aria-current="page" href="/contact">Contact Us</a>
                             </li>
                             <li className="nav-item mx-2">
+                                <a className="nav-link" aria-current="page" href="/admin/login">Admin</a>
+                            </li>
+                            <li className="nav-item mx-2">
                                 <a className="nav-link active" href="/login">Login</a>
                             </li>
                             <li className="nav-item mx-2">
@@ -101,7 +104,6 @@ const Login = () => {
                         <p className="my-2">
                             don't have an account? <a href="/signup" className="link-light">Sign up</a>
                         </p>
-                        <div> <a href="/admin/login" className="link-light"> Login as an Admin </a> </div>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import './Admin.css';
 import AdminNavbar from './AdminNavbar';
 import axios from 'axios';
 import {useState,useEffect} from 'react';
+import moment from 'moment';
 const Reports = () => {
     const [reports,setReports] = useState([])
 
@@ -43,7 +44,7 @@ const Reports = () => {
                                             <div> <b>reported by: </b> {report.author.firstName} </div>
                                         </div>
                                     </div>
-                                    <p className="text-end mb-0"> <small>{report.createdAt}</small> </p>
+                                    <p className="text-end mb-0"> <small>{moment(report.createdAt).fromNow()}</small> </p>
                                 </div>
                             ))
                         }

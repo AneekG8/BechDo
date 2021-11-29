@@ -134,13 +134,16 @@ const Signup = () => {
                     <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul className="navbar-nav">
                         <li className="nav-item mx-2">
-                        <a className="nav-link" aria-current="page" href="/contact">Contact Us</a>
+                            <a className="nav-link" aria-current="page" href="/contact">Contact Us</a>
                         </li>
                         <li className="nav-item mx-2">
-                        <a className="nav-link" href="/login">Login</a>
+                            <a className="nav-link" aria-current="page" href="/admin/login">Admin</a>
                         </li>
                         <li className="nav-item mx-2">
-                        <a className="nav-link active" href="/signup">Sign up</a>
+                            <a className="nav-link" href="/login">Login</a>
+                        </li>
+                        <li className="nav-item mx-2">
+                            <a className="nav-link active" href="/signup">Sign up</a>
                         </li>
                     </ul>
                     </div>

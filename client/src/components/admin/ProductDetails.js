@@ -88,7 +88,7 @@ const ProductDetails = (props) => {
                             </div>
                             <div className="px-3">
                                 <h4> Description </h4>
-                                <p> {state.product.description} </p>
+                                <p> {state.product.description || 'No description available'}  </p>
                             </div>
                         </div>
                     </div>

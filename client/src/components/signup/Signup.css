@@ -67,7 +67,3 @@
 #progressbar li.active:after {
     background: #673AB7
 }
-
-#starting{
-    background-image: linear-gradient(45deg,skyblue,white,skyblue)
-}

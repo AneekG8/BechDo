@@ -14,6 +14,9 @@ const Landing = () => {
                   <a className="nav-link" aria-current="page" href="/contact">Contact Us</a>
                 </li>
                 <li className="nav-item mx-2">
+                  <a className="nav-link" aria-current="page" href="/admin/login">Admin</a>
+                </li>
+                <li className="nav-item mx-2">
                   <a className="nav-link" href="/login">Login</a>
                 </li>
                 <li className="nav-item mx-2">

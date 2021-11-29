@@ -37,13 +37,16 @@ const AdminLogin = (props) => {
                     <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul className="navbar-nav">
                         <li className="nav-item mx-2">
-                        <a className="nav-link" aria-current="page" href="/contact">Contact Us</a>
+                            <a className="nav-link" aria-current="page" href="/contact">Contact Us</a>
                         </li>
                         <li className="nav-item mx-2">
-                        <a className="nav-link active" href="/login">Login</a>
+                            <a className="nav-link active" aria-current="page" href="/admin/login">Admin</a>
                         </li>
                         <li className="nav-item mx-2">
-                        <a className="nav-link" href="/signup">Sign up</a>
+                            <a className="nav-link" href="/login">Login</a>
+                        </li>
+                        <li className="nav-item mx-2">
+                            <a className="nav-link" href="/signup">Sign up</a>
                         </li>
                     </ul>
                     </div>
@@ -69,7 +72,6 @@ const AdminLogin = (props) => {
                             <button className="btn btn-dark btn-sm w-100">login</button>
                         </form>
                         <p style={{color: "red"}}> {state.error}</p>
-                        <div> <a href="/login"> Login as a User </a> </div>
                     </div>
                 </div>
             </div>
