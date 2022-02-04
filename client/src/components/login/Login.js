@@ -138,7 +138,7 @@ const Login = () => {
                             <p className="text-secondary"> Enter your details below</p>
 
                             <GoogleLogin
-                            clientId='377277162164-d2sr05uf6kfs23uo3ga97cbvdim852c3.apps.googleusercontent.com'
+                            clientId='769379499448-mmo1evlm2b35tjmllal38kf79hufh5l9.apps.googleusercontent.com'
                             onSuccess = { googleSuccess }
                             onFailure = { googleFailure }
                             className = "w-100 mb-2 border"
