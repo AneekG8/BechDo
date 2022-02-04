@@ -21,13 +21,21 @@ export const login_post = async (req,res)=>{
         const userCredential = await UserCredential.findOne({email});
 
         if(!userCredential)
-            throw(new Error('this email id is not registered!'));
+        {
+            const err = new Error('this email id is not registered!')
+            err.name = "email"
+            throw(err);
+        }
 
         const match = bcrypt.compareSync(password,userCredential.password);
         //const match = password === userCredential.password
 
         if(!match)
-            throw(new Error('password doesn\'t match'));
+        {
+            const err = new Error('password does not match')
+            err.name = "password"
+            throw(err);
+        }
 
         const user = await User.findOne({email,strategy: 'local'});
 
@@ -35,7 +43,7 @@ export const login_post = async (req,res)=>{
         res.status(200).json(user);
     }
     catch(err){
-        res.status(400).json({message: err.message});
+        res.status(400).json({name: err.name || 'server',message: err.message});
     }
 }
 

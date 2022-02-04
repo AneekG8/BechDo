@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from 'axios'
 import EmailVerification from "./EmailVerification";
 import UpdatePassword from "./UpdatePassword";
+import LandingNavbar from "../LandingNavbar/LandingNavbar";
 
 const ChangePassword = () => {
 
@@ -144,27 +145,8 @@ const ChangePassword = () => {
 
     return ( 
         <div className="" id="login">
-            <nav className="navbar navbar-expand-lg shadow-sm navbar-light fixed-top">
-                <div className="container-fluid px-3">
-                    <a className="navbar-brand" href="/">BechDo</a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                        <ul className="navbar-nav">
-                            <li className="nav-item mx-2">
-                                <a className="nav-link" aria-current="page" href="/contact">Contact Us</a>
-                            </li>
-                            <li className="nav-item mx-2">
-                                <a className="nav-link" href="/login">Login</a>
-                            </li>
-                            <li className="nav-item mx-2">
-                                <a className="nav-link" href="/signup">Sign up</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            
+            <LandingNavbar/>
 
             <div className="vh-100 row p-0 m-0">
 

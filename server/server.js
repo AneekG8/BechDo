@@ -3,7 +3,7 @@ import cors from 'cors';
 import env from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from "cookie-parser";
-
+import path from 'path'
 
 //routes
 import authRoutes from './routes/apis/authRoutes.js'; 
@@ -26,7 +26,6 @@ const dbOptions = {useUnifiedTopology: true,useNewUrlParser: true};
 mongoose.connect(dbURI,dbOptions)
     .then(res => {
         app.listen(PORT,()=>{
-            
             console.log('server has started....');
         })
     })
@@ -47,3 +46,4 @@ app.use('/api/products',productRoutes);
 app.use('/api/admin',adminRoutes);
 app.use('/api/messages',messageRoutes);
 app.use('/api/users',userRoutes);
+

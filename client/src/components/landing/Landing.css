@@ -1,12 +1,8 @@
 #landing{
-    background-image: url("https://images.unsplash.com/photo-1557821552-17105176677c?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2hvcHBpbmclMjBjYXJ0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+    background: linear-gradient(45deg,grey,white);
+    background-image: url("./background.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: auto;
 }
 
-#title{
-    position: relative;
-    left: -20%;
-    top: -10%;
-}
