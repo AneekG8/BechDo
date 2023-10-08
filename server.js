@@ -1,16 +1,16 @@
 import express from "express";
-import cors from 'cors';
-import env from 'dotenv';
-import mongoose from 'mongoose';
+import cors from "cors";
+import env from "dotenv";
+import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import path from 'path'
+import path from "path";
 
 //routes
-import authRoutes from './routes/apis/authRoutes.js'; 
-import productRoutes from './routes/apis/productRoutes.js';
-import adminRoutes from './routes/apis/adminRoutes.js';
-import messageRoutes from './routes/apis/messageRoutes.js';
-import userRoutes from './routes/apis/userRoutes.js';
+import authRoutes from "./routes/apis/authRoutes.js";
+import productRoutes from "./routes/apis/productRoutes.js";
+import adminRoutes from "./routes/apis/adminRoutes.js";
+import messageRoutes from "./routes/apis/messageRoutes.js";
+import userRoutes from "./routes/apis/userRoutes.js";
 
 const app = express();
 
@@ -20,39 +20,37 @@ const PORT = process.env.PORT;
 
 //DB properties
 const dbURI = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.v2eze.mongodb.net/BechDo?retryWrites=true&w=majority`;
-const dbOptions = {useUnifiedTopology: true,useNewUrlParser: true};
+const dbOptions = { useUnifiedTopology: true, useNewUrlParser: true };
 
 //DB connection
-mongoose.connect(dbURI,dbOptions)
-    .then(res => {
-        app.listen(PORT,()=>{
-            console.log('server has started....');
-        })
-    })
-    .catch(e=>{
-        console.log(e)
-    })
-
+mongoose
+  .connect(dbURI, dbOptions)
+  .then((res) => {
+    app.listen(PORT, () => {
+      console.log("server has started....");
+    });
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 
 //middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //config routes
-app.use('/api/auth',authRoutes);
-app.use('/api/products',productRoutes);
-app.use('/api/admin',adminRoutes);
-app.use('/api/messages',messageRoutes);
-app.use('/api/users',userRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/messages", messageRoutes);
+app.use("/api/users", userRoutes);
 
-if(process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
 
-    app.use(express.static('client/build'))
-
-    app.get('*',(req,res)=>{
-        res.sendFile(path.resolve('client','build','index.html'))
-    })
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve("client", "build", "index.html"));
+  });
 }
-
